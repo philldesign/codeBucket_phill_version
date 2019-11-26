@@ -7,19 +7,19 @@ module.exports = {
         subjectName: "What is HTML?",
         createdAt: new Date(),
         updatedAt: new Date(),
-        TopicId: 1
+        topicid: 1
       },
       {
         subjectName: "HTML Elements",
         createdAt: new Date(),
         updatedAt: new Date(),
-        TopicId: 1
+        topicid: 1
       },
       {
         subjectName: "HTML Forms",
         createdAt: new Date(),
         updatedAt: new Date(),
-        TopicId: 1
+        topicid: 1
       },
       {
         subjectName: "HTML Comments",

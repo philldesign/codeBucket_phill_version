@@ -1,12 +1,12 @@
 var db = require("../models");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Load index page / Query should get a list of all topics;
   // 1st LEVEL PAGE / "TOPICS" Table, LOAD ALL.
   app.get("/", async (req, res) => {
     try {
       const dbTopic = await db.Topic.findAll({});
-  //Pulls/Renders object within the index.handlebars file to display in the browser
+      //Pulls/Renders object within the index.handlebars file to display in the browser
       res.render("index", {
         msg: "Welcome To codeBucket!",
         topic: dbTopic
@@ -17,7 +17,21 @@ module.exports = function(app) {
         .render("400", { error: { name: error.name, msg: error.message } });
     }
   });
-// _______________________________________________________________________________
+  //SHAKIBS EXAMPLE HELP WITH SUBJECTS! GOOD FOR THE FILTERs  ________________
+
+  app.get("/subject/:topicid", function (req, res) {
+    db.Subject.findAll({ where: { topicid: req.params.topicid } })
+    .then(function (dbExample) {
+      res.render("subject", {
+        subject: dbExample
+      });
+    });       
+  });
+  
+  // _______________________________________________________________________________
+
+
+  // _______________________________________________________________________________
   // Load page with ALL SUBJECTS that are WITHIN the selected TOPIC
   // from index/home page. Check for FoerignKeys, ID, & Filters to be included on URL *
   // 2nd LEVEL PAGE / "SUBJECT" Table, EX: CSS
@@ -28,11 +42,11 @@ module.exports = function(app) {
     // req.body = {query: css}
     // const search = req.params.subject;
     try {
-      const dbSubject = await db.Subject.findAll({ //Iterate through the columns 
-        //"subjectNametable" in the table SUBJECT and returns the objects 
-        where: { TopicId: req.params.TopicId[1] }
+      const dbSubject = await db.Subject.findOne({ //Iterate through the columns 
+        //"subjectNames" in the table SUBJECT and returns the objects 
+        where: { TopicId: req.params.Subject.TopicId }
       });
-        // TEST THIS:  //must match name of table column
+      // TEST THIS:  //must match name of table column
       //Pulls code from the file "SUBJECT.HANDLEBAR" and renders it in the browser
       res.render("subject", {
         subject: dbSubject
@@ -43,14 +57,14 @@ module.exports = function(app) {
         .render("400", { error: { name: error.name, msg: error.message } });
     }
   });
-// ENDPOINT! Load page with SELECTED CARD from PREVIOUS page: Topic/Subjects.
+  // ENDPOINT! Load page with SELECTED CARD from PREVIOUS page: Topic/Subjects.
   // Check for FoerignKeys, ID, & Filters to be included on URL *
   // 3rd LEVEL PAGE / "CARD" Table, EX: Media Queries.
 
   app.get("/card", async (req, res) => {
     // const search = [req.query.topic, req.query.card];
-    const topic = req.query.topic;
-    const card = req.query.card;
+    // const topic = req.query.topic;
+    // const card = req.query.card;
 
     try {
       const getCard = await db.Card.findOne({
