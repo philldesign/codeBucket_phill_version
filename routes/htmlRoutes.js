@@ -26,13 +26,16 @@ module.exports = function(app) {
     // /subject?suject=css
     // route: /subject/:search   example: /subject/css
     // req.body = {query: css}
-    // const search = req.query.subject;
+    // const search = req.params.subject;
     try {
-      const dbSubjects = await db.Subject.findAll({});
-        // TEST THIS: where: { subjectList: search } //must match name of table column
+      const dbSubject = await db.Subject.findAll({ //Iterate through the columns 
+        //"subjectNametable" in the table SUBJECT and returns the objects 
+        where: { TopicId: req.params.TopicId[1] }
+      });
+        // TEST THIS:  //must match name of table column
       //Pulls code from the file "SUBJECT.HANDLEBAR" and renders it in the browser
       res.render("subject", {
-        subjec: dbSubjects
+        subject: dbSubject
       });
     } catch (error) {
       res
@@ -40,6 +43,30 @@ module.exports = function(app) {
         .render("400", { error: { name: error.name, msg: error.message } });
     }
   });
+// ENDPOINT! Load page with SELECTED CARD from PREVIOUS page: Topic/Subjects.
+  // Check for FoerignKeys, ID, & Filters to be included on URL *
+  // 3rd LEVEL PAGE / "CARD" Table, EX: Media Queries.
+
+  app.get("/card", async (req, res) => {
+    // const search = [req.query.topic, req.query.card];
+    const topic = req.query.topic;
+    const card = req.query.card;
+
+    try {
+      const getCard = await db.Card.findOne({
+        where: { cardName: topic, cardName: card }
+      });
+      //Pulls code from the file "SUBJECT.HANDLEBAR" and renders it in the browser, /card route.
+      res.render("card", {
+        cardName: getCard
+      });
+    } catch (error) {
+      res
+        .status(400)
+        .render("400", { error: { name: error.name, msg: error.message } });
+    }
+  });
+
   // _______________________________________________________________________________
   // _______________________________________________________________________________
   // Load card page and pass in an card by id

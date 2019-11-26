@@ -1,0 +1,22 @@
+<div id="home">
+  <div class="row">
+    <img src="/img/logo.png" alt="" class="mx-auto d-block">
+  </div>
+  <div class="row">
+    <!-- Search form -->
+    <input class="form-control col-8 mx-auto" type="text" placeholder="Search codeBucket" aria-label="Search">
+  </div>
+  <div class="row">
+    <h3>subjects</h3>
+    <ul id="subject-list" class="list-group">
+      {{#each subject}}
+      <li data-id="{{this.TopicId}}" class="list-group-item">
+        <a href="subject/{{this.TopicId}}">{{this.subjectName}}</a>
+        <button class="btn btn-danger float-right delete">ｘ</button>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+
+</div>
