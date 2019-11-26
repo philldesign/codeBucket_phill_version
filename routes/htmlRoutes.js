@@ -30,7 +30,7 @@ module.exports = function (app) {
   // * Check FILTER: TopicId using the file: ../seeders/###subject-id.js *
   // i.e. "/subject/ENTER NUMBER HERE" : "/subject/1 " OR "/subject/2 " 
 
-  app.get("/subject/:topicid", function (req, res) {
+  app.get("/topic/:topicid", function (req, res) {
     db.Subject.findAll({ where: { topicid: req.params.topicid } })
     .then(function (dbSubject) {
 
@@ -50,7 +50,7 @@ module.exports = function (app) {
   // * Check FILTER: SubjectId using the file: ../seeders/###card-seed.js *
   // i.e. "/card/ENTER NUMBER HERE" : "/card/1 " OR "/card/2 " 
 
-  app.get("/card/:subjectid", function (req, res) {
+  app.get("/topic/subject/:subjectid", function (req, res) {
     db.Card.findAll({ where: { subjectid: req.params.subjectid } })
     .then(function (dbCard) {
 
@@ -65,7 +65,7 @@ module.exports = function (app) {
   // _______________________________________________________________________________
 
   // Render 404 page for any unmatched routes
-  
+
   app.get("*", async (req, res) => {
     res.render("404");
   });

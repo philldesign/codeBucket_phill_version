@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "insertyourSQLpasswordhere?",
+    "password": "Rosegaarde9?",
     "database": "codeBucket",
     "host": "localhost",
     "port": 3306,
@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "root",
-    "password": "insertyourSQLpasswordhere?",
+    "password": "Rosegaarde9?",
     "database": "codeBucket",
     "host": "localhost",
     "dialect": "mysql",
